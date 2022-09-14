@@ -87,7 +87,7 @@ class SemanticToastContainer extends Component {
                 {toasts.map(toast => {
                     const {
                         id,
-                        type = 'info',
+                        type,
                         title = '',
                         description = '',
                         icon,

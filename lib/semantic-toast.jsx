@@ -10,8 +10,9 @@ const icons = {
     warning: 'warning circle'
 };
 
-function SemanticToast({ type, title, description, onClose, onDismiss, icon, ...props }) {
-    const computedIcon = icon || icons[type];
+function SemanticToast({ type, title, description, onClose, onDismiss, icon, color, ...props }) {
+    const computedIcon = icon || icons[type] || 'announcement';
+    const computedType = type || (!color && 'info') || undefined;
 
     const onDispel = e => {
         e.stopPropagation();
@@ -21,11 +22,11 @@ function SemanticToast({ type, title, description, onClose, onDismiss, icon, ...
 
     return (
         <Message
-            {...{ [type]: true }}
             onDismiss={onDispel}
             header={title}
             content={description}
             icon={computedIcon}
+            color={color}
             floating
             {...props}
         />
@@ -33,7 +34,7 @@ function SemanticToast({ type, title, description, onClose, onDismiss, icon, ...
 }
 
 SemanticToast.propTypes = {
-    type: PropTypes.oneOf(['info', 'success', 'error', 'warning']).isRequired,
+    type: PropTypes.oneOf(['info', 'success', 'error', 'warning']),
     title: PropTypes.string.isRequired,
     description: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.string),
